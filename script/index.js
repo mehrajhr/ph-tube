@@ -74,6 +74,7 @@ const displayVideoDetails = (video) => {
   </div>
 </div>
   `;
+  hideLoader();
 };
 // {category_id: '1003', category: 'Comedy'}
 function displayCatagories(categories) {
