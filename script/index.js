@@ -11,6 +11,16 @@ function loadVedio() {
     .then((response) => response.json())
     .then((data) => displayVedios(data.videos));
 }
+const loadCatagoriesVidos = (id) => {
+  const url = `https://openapi.programming-hero.com/api/phero-tube/category/${id}`;
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      const clickedButton = document.getElementById(`btn-${id}`);
+      clickedButton.classList.add("active");
+      displayVedios(data.category)
+    });
+};
 // {category_id: '1003', category: 'Comedy'}
 function displayCatagories(categories) {
   const catagorieContainer = document.getElementById("catagorie-container");
@@ -18,12 +28,20 @@ function displayCatagories(categories) {
   categories.forEach((cat) => {
     const div = document.createElement("div");
     div.innerHTML = `
-        <button class="btn btn-sm hover:bg-orange-500 hover:text-white ">${cat.category}</button>`;
+        <button id="btn-${cat.category_id}" onClick="loadCatagoriesVidos(${cat.category_id})" class="btn btn-sm hover:bg-orange-500 hover:text-white ">${cat.category}</button>`;
     catagorieContainer.appendChild(div);
   });
 }
 const displayVedios = (videos) => {
   const videoContainer = document.getElementById("video-container");
+  videoContainer.innerHTML = "";
+  if (videos.length == 0) {
+    videoContainer.innerHTML = `
+     <div class="col-span-full flex flex-col justify-center items-center py-16 gap-7">
+                <img src="assets/Icon.png" alt="" class="w-[120px]">
+                <h2 class="text-2xl font-bold">Oops!! Sorry, There is no content here</h2>
+            </div>`;
+  }
   videos.forEach((video) => {
     console.log(video);
     const div = document.createElement("div");
@@ -40,9 +58,7 @@ const displayVedios = (videos) => {
                     <div>
                         <div class="avatar">
                             <div class="ring-primary ring-offset-base-100 w-8 rounded-full ring ring-offset-2">
-                              <img src="${video.authors[0].
-                                profile_picture
-                                }" />
+                              <img src="${video.authors[0].profile_picture}" />
                             </div>
                           </div>
                     </div>
