@@ -4,6 +4,15 @@ const removeClasslist = () => {
     btn.classList.remove("active");
   }
 };
+
+const showLoader = () =>{
+  document.getElementById("loaderContainer").classList.remove("hidden");
+  document.getElementById("video-container").classList.add("hidden");
+}
+const hideLoader = () =>{
+  document.getElementById("loaderContainer").classList.add("hidden");
+  document.getElementById("video-container").classList.remove("hidden");
+}
 function loadCatagories() {
   // fetch the data
   fetch("https://openapi.programming-hero.com/api/phero-tube/categories")
@@ -12,8 +21,9 @@ function loadCatagories() {
     // send data to display catagories
     .then((data) => displayCatagories(data.categories));
 }
-function loadVedio() {
-  fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
+function loadVedio(searchText = "") {
+  showLoader();
+  fetch(`https://openapi.programming-hero.com/api/phero-tube/videos?title=${searchText}`)
     .then((response) => response.json())
     .then((data) => {
       removeClasslist();
@@ -22,7 +32,9 @@ function loadVedio() {
       displayVedios(data.videos);
     });
 }
+
 const loadCatagoriesVidos = (id) => {
+  showLoader();
   const url = `https://openapi.programming-hero.com/api/phero-tube/category/${id}`;
   fetch(url)
     .then((response) => response.json())
@@ -33,12 +45,15 @@ const loadCatagoriesVidos = (id) => {
       displayVedios(data.category);
     });
 };
+
 const loadVideoDetails = (id) => {
+  showLoader();
   const url = `https://openapi.programming-hero.com/api/phero-tube/video/${id}`;
   fetch(url)
     .then((response) => response.json())
     .then((data) => displayVideoDetails(data.video));
 };
+
 const displayVideoDetails = (video) => {
   console.log(video);
   document.getElementById("video_details").showModal();
@@ -52,8 +67,10 @@ const displayVideoDetails = (video) => {
   </figure>
   <div class="card-body">
     <h2 class="card-title">${video.title}</h2>
-    <p class="text-sm text-gray-400 flex gap-1 my-2">${video.authors[0].profile_name} <img class="w-5 h-5" src="https://img.icons8.com/?size=96&id=98A4yZTt9abw&format=png" alt=""></p>
-                        <p class="text-sm text-gray-400 ">${video.others.views} views</p>
+    <p class="text-sm text-gray-400 flex gap-1 my-2">${video.authors[0].profile_name} ${
+      video.authors[0].verified == true ? `<img class="w-5 h-5" src="https://img.icons8.com/?size=96&id=98A4yZTt9abw&format=png" alt="verified"` : ``
+    }</p>
+    <p class="text-sm text-gray-400 ">${video.others.views} views</p>
   </div>
 </div>
   `;
@@ -101,7 +118,8 @@ const displayVedios = (videos) => {
                     </div>
                     <div>
                         <h2 class="test-sm font-semibold">${video.title}</h2>
-                        <p class="text-sm text-gray-400 flex gap-1 my-2">${video.authors[0].profile_name} <img class="w-5 h-5" src="https://img.icons8.com/?size=96&id=98A4yZTt9abw&format=png" alt=""></p>
+                        <p class="text-sm text-gray-400 flex gap-1 my-2">${video.authors[0].profile_name} ${
+                          video.authors[0].verified == true ? `<img class="w-5 h-5" src="https://img.icons8.com/?size=96&id=98A4yZTt9abw&format=png" alt="verified"` : ``} </p>
                         <p class="text-sm text-gray-400 ">${video.others.views} views</p>
                     </div>
                 </div>
@@ -110,5 +128,12 @@ const displayVedios = (videos) => {
         `;
     videoContainer.appendChild(div);
   });
+  hideLoader();
 };
+
+document.getElementById('search_input').addEventListener('keyup', (event) =>{
+  const input = event.target.value;
+  showLoader();
+  loadVedio(input);
+})
 loadCatagories();

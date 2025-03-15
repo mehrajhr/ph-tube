@@ -25,11 +25,14 @@
                 <div class="navbar-start">
                     <img class="w-[120px]" src="assets/Logo.png" alt="">
                 </div>
-                <div class="navbar-center">
-                    <button class="btn bg-slate-300 hidden md:block">Sort By View</button>
+                <div class="navbar-center w-28 md:w-fit">
+                    <label class="input">
+                        <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></g></svg>
+                        <input id="search_input" type="search" required placeholder="Search"/>
+                      </label>
                 </div>
                 <div class="navbar-end">
-                    <a class="btn  bg-orange-500 text-white">Blog</a>
+                    <a class="btn  bg-orange-500 text-white">Sort by view</a>
                 </div>
             </div>
         </nav>
@@ -42,6 +45,10 @@
             </div>
         </section>
 
+        <!-- loader section -->
+         <section id="loaderContainer" class="text-center py-8 hidden">
+            <span class="loading loading-dots loading-xl w-16"></span>
+         </section>
         <!-- video container -->
         <section id="video-container" class="w-11/12 mx-auto my-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
             <div class="col-span-full flex flex-col justify-center items-center py-16 gap-7">
