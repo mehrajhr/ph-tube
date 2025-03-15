@@ -11,7 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <style>
-        .active{
+        .active {
             color: white;
             background-color: rgb(232, 168, 47);
         }
@@ -20,7 +20,7 @@
 
 <body>
     <header class="">
-        <nav >
+        <nav>
             <div class="navbar w-11/12 mx-auto bg-base-100 border-b-2 py-8 border-[#17171720]">
                 <div class="navbar-start">
                     <img class="w-[120px]" src="assets/Logo.png" alt="">
@@ -29,26 +29,42 @@
                     <button class="btn bg-slate-300 hidden md:block">Sort By View</button>
                 </div>
                 <div class="navbar-end">
-                  <a class="btn  bg-orange-500 text-white">Blog</a>
+                    <a class="btn  bg-orange-500 text-white">Blog</a>
                 </div>
-              </div>
+            </div>
         </nav>
     </header>
     <main>
         <!-- dynamic catagories section -->
-         <section id="catagorie-container" class="flex gap-5 justify-center py-5">
+        <section id="catagorie-container" class="flex gap-5 justify-center py-5">
             <div>
                 <button id="btn-all" onclick="loadVedio()" class="btn btn-sm">All</button>
             </div>
-         </section>
+        </section>
 
-         <!-- video container -->
-          <section id="video-container" class="w-11/12 mx-auto my-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
+        <!-- video container -->
+        <section id="video-container" class="w-11/12 mx-auto my-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
             <div class="col-span-full flex flex-col justify-center items-center py-16 gap-7">
                 <img src="assets/Icon.png" alt="" class="w-[120px]">
                 <h2 class="text-2xl font-bold">Oops!! Sorry, There is no content here</h2>
             </div>
-          </section>
+        </section>
+
+        <!-- Open the modal using ID.showModal() method -->
+        <!-- <button class="btn" onclick="my_modal_1.showModal()">open modal</button> -->
+        <dialog id="video_details" class="modal">
+            <div class="modal-box">
+                <div id="details_container"></div>
+                <!-- <h3 class="text-lg font-bold">Hello!</h3>
+                <p class="py-4">Press ESC key or click the button below to close</p> -->
+                <div class="modal-action">
+                    <form method="dialog">
+                        <!-- if there is a button in form, it will close the modal -->
+                        <button class="btn">Close</button>
+                    </form>
+                </div>
+            </div>
+        </dialog>
     </main>
 
 
